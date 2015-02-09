@@ -45,8 +45,8 @@ __To collect speed data:__
     ```
 Then inside of editor add cronjob that launches the speed test script every 5 minutes.
 
->   Just make sure to change the path to folder.
->   Node path may differ depending on system, check path by running `which node`
+    > Just make sure to change the path to folder.
+    > Node path may differ depending on system, check path by running `which node`
 
     ```
     */5 * * * * /usr/local/bin/node /path/to/repo/app.js
