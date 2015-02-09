@@ -4,34 +4,52 @@ Used to firmly test the internet capability in 24/7 time period and to visualy s
 
 ## TO-DO
 - [x] Create logging
-- [ ] Add data visualization using d3.js
 - [ ] Per hour chart for download/upload
 - [ ] Per hour chart for ping
 - [ ] Per day chart
 
+## Dependencies
+- Node.js + NPM
+- Bower
+- Gulp
+
 ## Usage
+__Too collect speed data:__
+1. clone the repo
 ```bash
-# 1. clone the repo
 git clone https://github.com/renarsvilnis/internet-speed-tester.git
-
-# 2. cd into it
+```
+2. cd into it
+```bash
 cd internet-speed-tester
-
-# 3. install dependencies
+```
+3. install dependencies
+```bash
 npm install
-
-# 4. make crontab
+```
+4. make crontab
+```bash
 crontab -e
-# then inside of editor add cronjob that launches the speed test script every 5 minutes. Just make sure to change the path to repo!
-# NOTE - node path may differ depending on system, check path by running "which node"
+```
+Then inside of editor add cronjob that launches the speed test script every 5 minutes.
+
+>Just make sure to change the path to folder.
+> Node path may differ depending on system, check path by running `which node`
+
+```
 */5 * * * * /usr/local/bin/node /path/to/repo/app.js
-
-# 5. ???
-
-# 6. Profit
 ```
 
-To see data visualizations open `index.html`.
+__To see data visualizations:__
+1. install dependencies
+```bash
+bower install
+```
+2. build assets
+```bash
+gulp dist
+```
+3. open `index.html`
 
 ## Author
 Created by [Renārs Vilnis](https://twitter.com/RenarsVilnis)
