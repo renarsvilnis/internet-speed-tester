@@ -9,8 +9,10 @@ Used to firmly test the internet capability in 24/7 time period and to visualy s
 ## Usage
 ```bash
 # 1. clone the repo
+git clone https://github.com/renarsvilnis/internet-speed-tester.git
 
 # 2. cd into it
+cd internet-speed-tester
 
 # 3. install dependencies
 npm install
@@ -25,6 +27,8 @@ crontab -e
 
 # 6. Profit
 ```
+
+To see data visualizations open `index.html`.
 
 ## Author
 Created by [Renārs Vilnis](https://twitter.com/RenarsVilnis)
