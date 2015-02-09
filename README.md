@@ -5,6 +5,9 @@ Used to firmly test the internet capability in 24/7 time period and to visualy s
 ## TO-DO
 - [x] Create logging
 - [ ] Add data visualization using d3.js
+- [ ] Per hour chart for download/upload
+- [ ] Per hour chart for ping
+- [ ] Per day chart
 
 ## Usage
 ```bash

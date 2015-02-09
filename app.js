@@ -24,7 +24,7 @@ var processData = function(err, data) {
     };
   }
 
-  fs.readFile(logfilePath, function(err, logfile) {
+  fs.readFile(logfilePath, 'utf-8', function(err, logfile) {
 
     // missing folder or file
     if(err){
@@ -37,13 +37,19 @@ var processData = function(err, data) {
       fs.writeFileSync(logfilePath);
     }
 
-    if(!logfile)
-      logfile = '{}';
+    if(!logfile) {
+      logfileData = {};
+    } else {
 
-    var logfileData = JSON.parse(logfile);
+      // Stripping and adding 'var dataJson = /* data */;' so that can load it in html with out creating a phython, node, php server.
+      logfile = logfile.replace(/^(var dataJSON = )*/, '').replace(/(;*)$/, '');
+      logfileData = JSON.parse(logfile);
+    }
+
     logfileData[timestamp] = data;
 
-    fs.writeFileSync(logfilePath, JSON.stringify(logfileData));
+    var outData = 'var dataJSON = ' + JSON.stringify(logfileData) + ';';
+    fs.writeFileSync(logfilePath, outData);
 
     process.exit();
   });
