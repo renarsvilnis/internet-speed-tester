@@ -15,22 +15,26 @@ Used to firmly test the internet capability in 24/7 time period and to visualy s
 
 ## Usage
 __Too collect speed data:__
+
 1. clone the repo
-```bash
-git clone https://github.com/renarsvilnis/internet-speed-tester.git
-```
+    ```bash
+    git clone https://github.com/renarsvilnis/internet-speed-tester.git
+    ```
+
 2. cd into it
-```bash
-cd internet-speed-tester
-```
+    ```bash
+    cd internet-speed-tester
+    ```
+
 3. install dependencies
-```bash
-npm install
-```
+    ```bash
+    npm install
+    ```
+
 4. make crontab
-```bash
-crontab -e
-```
+    ```bash
+    crontab -e
+    ```
 Then inside of editor add cronjob that launches the speed test script every 5 minutes.
 
 >Just make sure to change the path to folder.
@@ -40,15 +44,19 @@ Then inside of editor add cronjob that launches the speed test script every 5 mi
 */5 * * * * /usr/local/bin/node /path/to/repo/app.js
 ```
 
+
 __To see data visualizations:__
+
 1. install dependencies
-```bash
-bower install
-```
+    ```bash
+    bower install
+    ```
+
 2. build assets
-```bash
-gulp dist
-```
+    ```bash
+    gulp dist
+    ```
+
 3. open `index.html`
 
 ## Author
