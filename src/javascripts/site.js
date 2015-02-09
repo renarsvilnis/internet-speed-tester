@@ -94,6 +94,16 @@ var n = 3, // number of layers
     m = 24, // number of samples per layer
     stack = d3.layout.stack(),
 
+    days = [
+     'Monday',
+     'Tuesday',
+     'Wednesday',
+     'Thursday',
+     'Friday',
+     'Saturday',
+     'Sunday'
+    ],
+
     // layers = stack(d3.range(n).map(function() { return bumpLayer(m, .1); })),
     layers = stack(logdata.prepairData(groupedData)),
 
