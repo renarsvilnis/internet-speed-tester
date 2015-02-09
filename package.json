@@ -1,0 +1,14 @@
+{
+  "name": "internet-speed-tester",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Renārs Vilnis",
+  "license": "MIT",
+  "dependencies": {
+    "speedtest-net": "^0.1.2"
+  }
+}
