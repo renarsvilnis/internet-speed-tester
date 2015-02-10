@@ -7,7 +7,7 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
   <title>Internet speed - visualization</title>
 
-  <link type="text/css" rel="stylesheet" href="src/stylesheets/site.css">
+  <link type="text/css" rel="stylesheet" href="dist/stylesheets/site.css">
   <style>
 
     body {
@@ -37,9 +37,74 @@
   </style>
 </head>
 <body>
+  <div class="container">
+    <h1>Stats</h1>
+
+    <div class="row">
+    
+      <div class="one-half column">
+        <table class="u-full-width">
+          <thead>
+            <tr>
+              <th></th>
+              <th>Slowest</th>
+              <th>Average</th>
+              <th>Fastest</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Download</strong></td>
+              <td>42 kb/s</td>
+              <td>52 kb/s</td>
+              <td>80 kb/s</td>
+            </tr>
+            <tr>
+              <td><strong>Upload</strong></td>
+              <td>42 kb/s</td>
+              <td>52 kb/s</td>
+              <td>80 kb/s</td>
+            </tr>
+            <tr>
+              <td><strong>Ping</strong></td>
+              <td>11 ms</td>
+              <td>23 ms</td>
+              <td>80 ms</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="one-half column">
+        <table class="u-full-width">
+          <thead>
+            <tr>
+              <th></th>
+              <th>Slowest</th>
+              <th>Fastest</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Day</strong></td>
+              <td>Monaday</td>
+              <td>Friday</td>
+            </tr>
+            <tr>
+              <td><strong>Hour</strong></td>
+              <td>12</td>
+              <td>23</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+
+  </div>
+  
 
   <script src="logs/logfile.json"></script>
-  <script src="bower_components/d3/d3.min.js"></script>
-  <script src="src/javascripts/site.js"></script>
+  <script src="dist/javascripts/site.js"></script>
 </body>
 </html>

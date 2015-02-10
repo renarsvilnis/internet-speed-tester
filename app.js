@@ -7,7 +7,9 @@ var fs = require('fs');
 var path = require('path');
 
 var test = speedtest({
-  maxTime: 100 // for faster app debug
+  pingCount: 10, // default 5
+  // maxTime: 100 // default 10000 - here smaller for faster app debug
+  // maxServers: 1
 });
 
 var processData = function(err, data) {

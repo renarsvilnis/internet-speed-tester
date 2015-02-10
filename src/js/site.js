@@ -26,26 +26,87 @@ http://bl.ocks.org/mbostock/1134768
 
 */
 
-var logdata = {};
+var Log = function(input) {
+  this.data = input;
+  this.dayData = this._group(this.data, true);
+  this.hourData = this._group(this.data, false);
+};
 
-// group by week day and hour
-logdata.groupByDate = function(logs) {
+Log.prototype._group = function(data, groupByHour) {
+  // group either by hour or day
+  var timeFnc = groupByHour ? 'getHours' : 'getDay';
+
   var grouped = {};
 
-  for(var epoch in logs) {
-    var date = new Date(epoch * 1);
-    var hour = date.getHours();
 
-    if(!grouped[hour])
-      grouped[hour] = {};
+  for(var timestamp in data) {
+    var date = new Date(timestamp * 1);
+    var sortValue = date[timeFnc]();
 
-    grouped[hour][epoch] = logs[epoch];
+    if(!grouped[sortValue])
+      grouped[sortValue] = {};
+
+    grouped[sortValue][timestamp] = data[timestamp];
   }
 
   return grouped;
 };
 
-logdata.prepairData = function(input) {
+Log.prototype._getKeyStats = function(jsonKey, data) {
+  // jsonKey is a key path to the log object desired value
+  // returns lowest, average, highest value of desired key
+
+  if(!data)
+    data = this.data;
+
+  var min,
+      avg = 0,
+      max;
+
+  var logCount = Object.keys(data).length;
+
+  for(var timestamp in data) {
+    var obj = data[timestamp],
+        value = Bro(obj).iCanHaz(jsonKey);
+
+    // compare min
+    if(typeof min == 'undefined') {
+      min = value;
+    } else if(value < min) {
+      min = value;
+    }
+
+    avg += value;
+
+    // compare max
+    if(typeof max == 'undefined') {
+      max = value;
+    } else if(value > max) {
+      max = value;
+    }
+
+  }
+
+  avg /= logCount;
+
+  return {
+    min: min,
+    avg: avg,
+    max: max
+  };
+};
+
+// summarize stats and displays them
+Log.prototype.summarize = function() {
+  var upload = this._getKeyStats('speeds.upload');
+  var download = this._getKeyStats('speeds.download');
+  var ping = this._getKeyStats('server.ping');
+
+
+  console.log(upload, download, ping);
+};
+
+Log.prepairData = function(input) {
 
   // build zerro value aray
   var out = d3.range(n).map(function() {
@@ -60,32 +121,34 @@ logdata.prepairData = function(input) {
   for(var hour in input) {
     var hourLog = input[hour];
 
-    var avgPing = 0,
-        avgUp   = 0,
-        avgDown = 0;
+    var avgUp   = 0,
+        avgDown = 0,
+        avgPing = 0;
 
     var logCount = Object.keys(hourLog).length;
 
     for(var epoch in hourLog) {
       var log = hourLog[epoch];
-      avgPing += log.server.ping;
       avgUp += log.speeds.upload;
       avgDown += log.speeds.download;
+      avgPing += log.server.ping;
     }
 
-    avgPing /= logCount;
     avgUp /= logCount;
     avgDown /= logCount;
+    avgPing /= logCount;
 
-    out[0][hour].y = avgPing;
-    out[1][hour].y = avgUp;
-    out[2][hour].y = avgDown;
+    out[0][hour].y = avgUp;
+    out[1][hour].y = avgDown;
+    out[2][hour].y = avgPing;
   }
 
   return out;
 };
 
-var groupedData = logdata.groupByDate(dataJSON);
+
+var log = new Log(dataJSON);
+log.summarize();
 
 // -----
 // Start to draw diagram
@@ -104,8 +167,8 @@ var n = 3, // number of layers
      'Sunday'
     ],
 
-    // layers = stack(d3.range(n).map(function() { return bumpLayer(m, .1); })),
-    layers = stack(logdata.prepairData(groupedData)),
+    layers = stack(d3.range(n).map(function() { return bumpLayer(m, .1); })),
+    // layers = stack(Log.prepairData(groupedData)),
 
     yGroupMax = d3.max(layers, function(layer) { return d3.max(layer, function(d) { return d.y; }); }),
     yStackMax = d3.max(layers, function(layer) { return d3.max(layer, function(d) { return d.y0 + d.y; }); });
@@ -116,7 +179,7 @@ var margin = {top: 40, right: 10, bottom: 20, left: 10},
 
 var x = d3.scale.ordinal()
     .domain(d3.range(m))
-    .rangeRoundBands([0, width], .08);
+    .rangeRoundBands([0, width], 0.08); // 0.08 = bar width 92%
 
 var y = d3.scale.linear()
     .domain([0, yStackMax])
