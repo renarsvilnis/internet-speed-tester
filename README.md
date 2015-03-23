@@ -4,6 +4,8 @@
 Application for testing internet speed by running automatic tests.
 Used to firmly test the internet capability in 24/7 time period and to visualy show the results.
 
+> http://c3js.org/examples.html
+
 ## TO-DO
 - [x] Create logging
 - [ ] Per hour chart for download/upload
